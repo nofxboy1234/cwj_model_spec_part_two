@@ -5,19 +5,19 @@ def my_method(x, &block)
   puts block.call
 end
 
-name = 'Dylan'
-my_proc = proc do |x, &block|
-  puts name
-  name = 'Whiskey'
-  puts x
-  return unless block
+def create_proc
+  name = 'Dylan'
+  proc do |x, &block|
+    puts name
+    name = 'Whiskey'
+    puts x
+    return unless block
 
-  puts block.call
+    puts block.call
+  end
 end
 
 my_method('hello') { 'bye' }
 puts "\n"
+my_proc = create_proc
 my_proc.call('hello') { 'bye' }
-puts name
-
-# Refresh on closures 
