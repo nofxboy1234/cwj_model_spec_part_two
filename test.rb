@@ -6,31 +6,19 @@ class User
   def method_missing(method_name, *_args, &block)
     puts '**** method_missing ****'
 
-    # class << self
-    #   attr_name = 'first_name'
-
-    #   define_method :"#{attr_name}" do
-    #     instance_variable_get("@#{attr_name}")
-    #   end
-    # end
-
     attr_name = method_name.to_s
 
     self.class.define_method :"#{attr_name}" do
       instance_variable_get("@#{attr_name}")
-      # 'Dylan'
     end
 
     return unless block_given?
 
-    # puts '**** block_given ****'
-    # puts block.call
-
     instance_variable_set("@#{attr_name}", block.call)
 
-    # self.class.define_method :"#{attr_name}=" do |&block|
-    #   instance_variable_set("@#{attr_name}", block.call)
-    # end
+    self.class.define_method :"#{attr_name}=" do |value|
+      instance_variable_set("@#{attr_name}", value)
+    end
   end
 end
 
@@ -49,13 +37,17 @@ class FactoryCat
   end
 end
 
-# FactoryCat.factory :user do
-#   first_name { 'John' }
-# end
-
-user = FactoryCat.create(:user)
+puts "\n"
+user1 = FactoryCat.create(:user)
+p user1
+p user1.first_name
+user1.first_name = 'Dylan'
+p user1.first_name
 
 puts "\n"
-p user
-p user.first_name
-# p user.class
+user2 = FactoryCat.create(:user)
+p user2
+p user2.first_name
+user2.first_name = 'Whiskey'
+p user2.first_name
+
