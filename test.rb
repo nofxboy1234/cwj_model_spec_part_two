@@ -3,22 +3,33 @@ class User
     puts 'hello there!'
   end
 
-  def method_missing(method_name, *_args, &block)
-    puts '**** method_missing ****'
+  def create_method(name, &block)
+    puts "\n"
+    p name
+    p block
 
-    attr_name = method_name.to_s
+    instance_variable_set("@#{name}", block.call)
 
-    self.class.define_method :"#{attr_name}" do
-      instance_variable_get("@#{attr_name}")
+    method_definition = proc do |&another_block|
+      if another_block
+        instance_variable_set("@#{name}", another_block.call)
+      else
+        instance_variable_get("@#{name}")
+      end
     end
 
-    return unless block_given?
+    self.class.define_method(name, method_definition)
+  end
 
-    instance_variable_set("@#{attr_name}", block.call)
+  def method_missing(method_name, *args, &block)
+    puts '#method_missing'
 
-    self.class.define_method :"#{attr_name}=" do |value|
-      instance_variable_set("@#{attr_name}", value)
-    end
+    puts "\n"
+    p method_name
+    p args
+    p block
+
+    create_method(method_name, &block)
   end
 end
 
@@ -39,15 +50,16 @@ end
 
 puts "\n"
 user1 = FactoryCat.create(:user)
+
+puts "\n"
 p user1
 p user1.first_name
-user1.first_name = 'Dylan'
+p(user1.first_name { 'Dylan' })
 p user1.first_name
 
 puts "\n"
 user2 = FactoryCat.create(:user)
 p user2
 p user2.first_name
-user2.first_name = 'Whiskey'
+p(user2.first_name { 'Whiskey' })
 p user2.first_name
-
