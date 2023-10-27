@@ -1,15 +1,8 @@
 class User
-  def create_method(method_name, &block)
-    puts 'creating method'
-    if block_given?
-      puts 'with a block'
-    else
-      puts 'without a block'
-    end
-
-    method_definition = proc do |*_args, &value_block|
+  def method_definition(method_name)
+    proc do |*_args, &value_block|
       puts "\ncalling #{method_name}"
-
+  
       if block_given?
         puts 'with a block'
         instance_variable_set("@#{method_name}", value_block.call)
@@ -18,8 +11,17 @@ class User
         instance_variable_get("@#{method_name}")
       end
     end
+  end
 
-    self.class.define_method(method_name, method_definition)
+  def create_method(method_name, &block)
+    puts 'creating method'
+    if block_given?
+      puts 'with a block'
+    else
+      puts 'without a block'
+    end
+
+    self.class.define_method(method_name, method_definition(method_name))
     # send(method_name, &block)
   end
 
