@@ -44,6 +44,7 @@ class FactoryCat
   def self.create(model_symbol)
     factory model_symbol do
       first_name { 'John' }
+      last_name { 'Smith' }
     end
   end
 end
@@ -56,6 +57,9 @@ p user1
 p user1.first_name
 p(user1.first_name { 'Dylan' })
 p user1.first_name
+p user1.last_name
+p(user1.last_name { 'Palmboom' })
+p user1.last_name
 
 puts "\n"
 user2 = FactoryCat.create(:user)
@@ -63,3 +67,6 @@ p user2
 p user2.first_name
 p(user2.first_name { 'Whiskey' })
 p user2.first_name
+p user2.last_name
+p(user2.last_name { 'TheCat' })
+p user2.last_name
