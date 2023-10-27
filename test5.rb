@@ -30,7 +30,7 @@ class User
 end
 
 user1 = User.new
-user1.first_name # creating method without a block <-------------
+user1.first_name # <-------------
 
-user1.first_name # calling first_name without a block
+user1.first_name
 user1.first_name { 'a' }
