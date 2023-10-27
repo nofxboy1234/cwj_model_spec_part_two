@@ -8,13 +8,11 @@ class User
     p name
     p block
 
-    if block
-      instance_variable_set("@#{name}", block.call)
-    end
+    instance_variable_set("@#{name}", block.call) if block_given?
 
-    method_definition = proc do |&block|
-      if block
-        instance_variable_set("@#{name}", block.call)
+    method_definition = proc do |&value_block|
+      if value_block
+        instance_variable_set("@#{name}", value_block.call)
       else
         instance_variable_get("@#{name}")
       end
