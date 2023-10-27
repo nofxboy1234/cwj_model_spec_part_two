@@ -33,4 +33,5 @@ user1 = User.new
 user1.first_name # <-------------
 
 user1.first_name
+
 user1.first_name { 'a' }
