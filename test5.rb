@@ -22,11 +22,10 @@ class User
     end
 
     self.class.define_method(method_name, method_definition(method_name))
-    # send(method_name, &block)
+    send(method_name, &block)
   end
 
   def method_missing(method_name, *_args, &block)
-    # create_method(method_name)
     create_method(method_name, &block)
   end
 end
