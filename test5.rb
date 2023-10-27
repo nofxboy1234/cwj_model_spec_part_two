@@ -1,7 +1,6 @@
 class User
   def create_method(method_name, &block)
-    method_definition = proc do |*args, &value_block|
-      p args
+    method_definition = proc do |*_args, &value_block|
       if value_block
         instance_variable_set("@#{method_name}", value_block.call)
       else
@@ -10,17 +9,15 @@ class User
     end
 
     self.class.define_method(method_name, method_definition)
-
     send(method_name, &block)
   end
 
   def method_missing(method_name, *_args, &block)
-    p 'method_missing'
     create_method(method_name, &block)
   end
 end
 
 user1 = User.new
-p user1.first_name { 'a' }
-p user1.first_name { 'b' }
+p(user1.first_name { 'a' })
+p(user1.first_name { 'b' })
 p user1.first_name('x', 'y', 'z') { 'c' }
