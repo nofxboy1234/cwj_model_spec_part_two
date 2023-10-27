@@ -19,6 +19,6 @@ end
 
 user1 = User.new
 p(user1.first_name { 'a' })
+p user1.first_name('x', 'y', 'z')
 p(user1.first_name { 'b' })
 p user1.first_name('x', 'y', 'z') { 'c' }
-p user1.first_name('x', 'y', 'z')
