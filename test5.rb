@@ -1,11 +1,16 @@
 class User
   def create_method(method_name, &block)
     puts 'creating method'
+    if block_given?
+      puts 'with a block'
+    else
+      puts 'without a block'
+    end
 
     method_definition = proc do |*_args, &value_block|
       puts "\ncalling #{method_name}"
 
-      if value_block
+      if block_given?
         puts 'with a block'
         instance_variable_set("@#{method_name}", value_block.call)
       else
@@ -19,12 +24,13 @@ class User
   end
 
   def method_missing(method_name, *_args, &block)
+    # create_method(method_name)
     create_method(method_name, &block)
   end
 end
 
 user1 = User.new
-user1.first_name
+user1.first_name # creating method without a block <-------------
 
-user1.first_name
+user1.first_name # calling first_name without a block
 user1.first_name { 'a' }
