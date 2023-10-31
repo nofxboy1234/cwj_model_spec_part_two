@@ -1,16 +1,19 @@
 class AppointmentFactory
   def self.find_or_create(attributes = {})
-    appointment = attributes[:id] ? Appointment.find(attributes[:id]) : Appointment.new
-    return appointment unless attributes[:appointment].present?
+    Appointment.find_or_initialize_by(id: attributes[:id]).tap do |appointment|
+      appointment.attributes = filtered_attributes(attributes[:appointment])
+    end
+  end
 
-    appointment.attributes = {
-      time_block_type: TimeBlockType.find_by_code(attributes[:appointment][:time_block_type_code]),
-      notes:           attributes[:appointment][:notes],
-      stylist_id:      attributes[:appointment][:stylist_id],
-      is_cancelled:    attributes[:appointment][:is_cancelled],
-      tip:             attributes[:appointment][:tip]
+  def self.filtered_attributes(appointment_attributes)
+    return {} unless appointment_attributes.present?
+
+    {
+      time_block_type: TimeBlockType.find_by_code(appointment_attributes[:time_block_type_code]),
+      notes:           appointment_attributes[:notes],
+      stylist_id:      appointment_attributes[:stylist_id],
+      is_cancelled:    appointment_attributes[:is_cancelled],
+      tip:             appointment_attributes[:tip]
     }
-
-    appointment
   end
 end
