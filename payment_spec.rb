@@ -4,6 +4,7 @@ require_relative 'logger'
 
 describe Payment do
   it 'records the payment' do
+    # Stub
     payment_gateway = double()
     allow(payment_gateway).to receive(:charge).and_return(payment_id: 1234)
     
