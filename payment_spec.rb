@@ -1,3 +1,7 @@
+require_relative 'payment'
+require_relative 'payment_gateway'
+require_relative 'logger'
+
 describe Payment do
   it 'records the payment' do
     payment_gateway = PaymentGateway.new
