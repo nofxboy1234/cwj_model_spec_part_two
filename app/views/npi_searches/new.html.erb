@@ -1,2 +1,18 @@
-<h1>NPISearches#new</h1>
-<p>Find me in app/views/npi_searches/new.html.erb</p>
+<!-- app/views/npi_searches/new.html.erb -->
+
+<h1>New NPI Search</h1>
+
+<%= form_tag new_npi_search_path, method: :get do %>
+  <%= text_field_tag :first_name, params[:first_name], class: "p-1" %>
+  <%= text_field_tag :last_name, params[:last_name], class: "p-1" %>
+  <%= submit_tag "Search", class: "p-1" %>
+<% end %>
+
+<% @results.each do |result| %>
+  <div>
+    <%= result["basic"]["name_prefix"] %>
+    <%= result["basic"]["first_name"] %>
+    <%= result["basic"]["last_name"] %>
+    <%= result["number"] %>
+  </div>
+<% end %>

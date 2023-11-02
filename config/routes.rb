@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'npi_searches/new'
+  # get 'npi_searches/new'
+  resources :npi_searches
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -8,4 +9,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root 'npi_searches#new'
 end
