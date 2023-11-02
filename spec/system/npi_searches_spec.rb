@@ -9,7 +9,7 @@ RSpec.describe "NPISearches", type: :system do
     fill_in 'last_name', with: 'fuhrman'
     # sleep(1)
     click_on 'Search'
-    sleep(2)
+    # sleep(2)
 
     # 1386765287 is the NPI code for Dr. Joel Fuhrman
     expect(page).to have_content('1386765287')
