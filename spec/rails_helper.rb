@@ -61,9 +61,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # config.before(:each, type: :system) do
-  #   driven_by :selenium_chrome_headless
-  # end
+  config.before(:each, type: :system) do
+    driven_by :selenium_chrome
+    # driven_by :selenium_chrome_headless
+    page.driver.browser.manage.window.resize_to(1300, 900)
+  end
 end
 
+# To get accept_alert (modals) to work in javascript
 Capybara.default_driver = :selenium_chrome
