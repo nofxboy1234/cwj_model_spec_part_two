@@ -1,4 +1,6 @@
 class AppointmentServiceCollection
+  include ActionView::Helpers::NumberHelper
+
   def initialize(appointment_services)
     @appointment_services = appointment_services
   end
