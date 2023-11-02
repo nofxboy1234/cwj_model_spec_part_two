@@ -13,15 +13,15 @@ class CreditCard
     if DateTime.now.to_date < Date.new(year, month)
       return false
     else
-      number_is_right_length?
+      self.class.number_is_right_length?(@brand, @number)
     end
   end
 
-  def number_is_right_length?
-    if @brand == 'American Express'
-      @number.gsub(/\s+/, '').length == 15
+  def self.number_is_right_length?(brand, number)
+    if brand == 'American Express'
+      number.gsub(/\s+/, '').length == 15
     else
-      @number.gsub(/\s+/, '').length == 16
+      number.gsub(/\s+/, '').length == 16
     end
   end
 end
