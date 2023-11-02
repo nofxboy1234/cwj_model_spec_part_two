@@ -1,6 +1,9 @@
 require 'date'
 
 class CreditCard
+  NUMBER_LENGTH = 16
+  NUMBER_LENGTH_AMEX = 15
+
   def initialize(number, expiration_date, brand)
     @number = number
     @expiration_date = expiration_date
@@ -8,24 +11,31 @@ class CreditCard
   end
 
   def valid?
-    if self.class.expired?(@expiration_date)
-      false
+    number_is_right_length? && !expired?
+  end
+
+  def expired?
+    DateTime.now.to_date > Date.new(*expiration_year_and_month)
+  end
+
+  def expiration_year_and_month
+    month, year = @expiration_date.split('/').map(&:to_i)
+    [year + 2000, month]
+  end
+
+  def number_is_right_length?
+    stripped_number.length == correct_card_length
+  end
+
+  def correct_card_length
+    if @brand == 'American Express'
+      NUMBER_LENGTH_AMEX
     else
-      self.class.number_is_right_length?(@brand, @number)
+      NUMBER_LENGTH
     end
   end
 
-  def self.expired?(expiration_date)
-    month, year = expiration_date.split('/').map(&:to_i)
-    year += 2000
-    DateTime.now.to_date > Date.new(year, month)
-  end
-
-  def self.number_is_right_length?(brand, number)
-    if brand == 'American Express'
-      number.gsub(/\s+/, '').length == 15
-    else
-      number.gsub(/\s+/, '').length == 16
-    end
+  def stripped_number
+    @number.gsub(/\s+/, '')
   end
 end
