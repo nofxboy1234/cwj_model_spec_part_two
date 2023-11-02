@@ -53,7 +53,9 @@ group :development, :test do
   gem "webdrivers"
   gem "factory_bot_rails"
   gem "faker"
+  
   gem 'webmock'
+  gem 'vcr'
 end
 
 group :development do
