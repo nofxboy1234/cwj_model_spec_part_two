@@ -21,3 +21,6 @@ class CreditCard
     end
   end
 end
+
+cc = CreditCard.new('3843111122223333', '02/17', 'Visa')
+p cc.valid?
