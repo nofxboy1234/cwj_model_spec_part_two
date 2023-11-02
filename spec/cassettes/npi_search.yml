@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://npiregistry.cms.hhs.gov/api/?address_purpose=&first_name=joel&last_name=fuhrman&version=2.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - npiregistry.cms.hhs.gov
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1072'
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 02 Nov 2023 19:17:16 GMT
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 0c28169a9746406e1056e9be96338324.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - MXP64-P2
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - xTmL6VhkAmI5ryP9PMSzQGWrV9b5BwBjb7ZyywbhSOINuwfQVjxrHA==
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - same-origin
+      Content-Security-Policy:
+      - default-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self'
+        'unsafe-inline'; img-src 'self' data:;
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"result_count":1,"results":[{"created_epoch":"1175531217000","enumeration_type":"NPI-1","last_updated_epoch":"1689195334000","number":"1386765287","addresses":[{"country_code":"US","country_name":"United
+        States","address_purpose":"LOCATION","address_type":"DOM","address_1":"16413
+        RIO VISTA RD","city":"SAN DIEGO","state":"CA","postal_code":"921275742","telephone_number":"908-507-2244"},{"country_code":"US","country_name":"United
+        States","address_purpose":"MAILING","address_type":"DOM","address_1":"16591
+        RIO VISTA RD","city":"SAN DIEGO","state":"CA","postal_code":"921275743","telephone_number":"908-507-2244"}],"practiceLocations":[],"basic":{"first_name":"JOEL","last_name":"FUHRMAN","middle_name":"H","credential":"MD","sole_proprietor":"YES","gender":"M","enumeration_date":"2007-04-02","last_updated":"2023-07-12","certification_date":"2023-07-12","status":"A","name_prefix":"Dr."},"taxonomies":[{"code":"207Q00000X","taxonomy_group":"","desc":"Family
+        Medicine","state":"CA","license":"G89173","primary":true}],"identifiers":[],"endpoints":[],"other_names":[]}]}'
+  recorded_at: Thu, 02 Nov 2023 19:17:16 GMT
+recorded_with: VCR 6.2.0
