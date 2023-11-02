@@ -1,6 +1,6 @@
 class Appointment < ActiveRecord::Base
   def services_with_info
-
+    AppointmentServiceCollection.new(appointment_services).to_h
   end
 
   def products_with_info
