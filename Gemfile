@@ -49,10 +49,11 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 
   gem "rspec-rails"
-  gem "factory_bot_rails"
   gem "capybara"
   gem "webdrivers"
+  gem "factory_bot_rails"
   gem "faker"
+  gem 'webmock'
 end
 
 group :development do
