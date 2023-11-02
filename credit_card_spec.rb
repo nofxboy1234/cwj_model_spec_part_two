@@ -15,8 +15,8 @@ describe CreditCard do
     context 'no spaces' do
       context 'right length' do
         it 'returns true' do
-          cc = CreditCard.new('3843111122223333', '02/17', 'Visa')
-          expect(cc.number_is_right_length?).to be true
+          valid = CreditCard.number_is_right_length?('Visa', '3843111122223333')
+          expect(valid).to be true
         end
       end
     end
