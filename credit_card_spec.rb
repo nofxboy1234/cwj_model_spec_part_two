@@ -23,15 +23,17 @@ describe CreditCard do
   end
 
   describe '#expired?' do
+    let(:this_year) { Date.today.strftime('%y').to_i }
+
     context 'expired' do
       it 'returns true' do
-        expect(CreditCard.expired?('02/17')).to be true
+        expect(CreditCard.expired?("02/#{this_year - 1}")).to be true
       end
     end
 
     context 'not expired' do
       it 'returns false' do
-        expect(CreditCard.expired?('02/30')).to be false
+        expect(CreditCard.expired?("02/#{this_year + 1}")).to be false
       end
     end
   end
