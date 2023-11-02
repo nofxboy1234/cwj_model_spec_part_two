@@ -2,16 +2,17 @@ require 'spec_helper'
 
 describe AppointmentServiceCollection do
   describe '#to_h' do
-    it 'works' do
-      appointment_service = create(
+    let(:appointment_service) do
+      create(
         :appointment_service,
         price: 30,
         service: create(:service, name: 'Mens Haircut')
       )
+    end
 
-      collection = AppointmentServiceCollection.new([appointment_service])
+    let(:item) { AppointmentServiceCollection.new([appointment_service]).to_h.first }
 
-      item = collection.to_h.first
+    it 'adds the right attributes' do
       expect(item['price']).to eq('30.00')
       expect(item['label']).to eq('Mens Haircut')
       expect(item['item_id']).to eq(appointment_service.service.id)
