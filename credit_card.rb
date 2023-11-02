@@ -18,7 +18,7 @@ class CreditCard
   def expired?
     month, year = @expiration_date.split('/').map(&:to_i)
     year += 2000
-    DateTime.now.to_date < Date.new(year, month)
+    DateTime.now.to_date > Date.new(year, month)
   end
 
   def self.number_is_right_length?(brand, number)
