@@ -29,5 +29,12 @@ describe CreditCard do
         expect(cc).to be_expired
       end
     end
+
+    context 'not expired' do
+      it 'returns false' do
+        cc = CreditCard.new('3843111122223333', '02/30', 'Visa')
+        expect(cc).not_to be_expired
+      end
+    end
   end
 end
