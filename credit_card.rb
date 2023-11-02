@@ -13,14 +13,15 @@ class CreditCard
     if DateTime.now.to_date < Date.new(year, month)
       return false
     else
-      if @brand == 'American Express'
-        @number.gsub(/\s+/, '').length == 15
-      else
-        @number.gsub(/\s+/, '').length == 16
-      end
+      number_is_right_length?
+    end
+  end
+
+  def number_is_right_length?
+    if @brand == 'American Express'
+      @number.gsub(/\s+/, '').length == 15
+    else
+      @number.gsub(/\s+/, '').length == 16
     end
   end
 end
-
-cc = CreditCard.new('3843111122223333', '02/17', 'Visa')
-p cc.valid?
