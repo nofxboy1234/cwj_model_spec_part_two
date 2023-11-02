@@ -25,15 +25,13 @@ describe CreditCard do
   describe '#expired?' do
     context 'expired' do
       it 'returns true' do
-        cc = CreditCard.new('3843111122223333', '02/17', 'Visa')
-        expect(cc).to be_expired
+        expect(CreditCard.expired?('02/17')).to be true
       end
     end
 
     context 'not expired' do
       it 'returns false' do
-        cc = CreditCard.new('3843111122223333', '02/30', 'Visa')
-        expect(cc).not_to be_expired
+        expect(CreditCard.expired?('02/30')).to be false
       end
     end
   end
