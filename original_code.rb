@@ -3,10 +3,10 @@ class UserTest < ActiveSupport::TestCase
 
   let(:user) { FactoryBot.build :user}
 
+  subject { FactoryBot.build(:user) }
+
   context "fresh instance" do
-    it "is valid" do
-      expect(user).to be_valid
-    end
+    it { should be_valid }
   end
 
   it "can be saved" do
