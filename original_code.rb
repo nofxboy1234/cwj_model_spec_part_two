@@ -1,45 +1,49 @@
-require 'test_helper'
-class UserTest < ActiveSupport::TestCase
+require 'rails_helper'
 
-  let(:user) { FactoryBot.build :user}
-
+RSpec.describe User, type: :model do
   subject { FactoryBot.build(:user) }
 
   context "fresh instance" do
     it { should be_valid }
   end
 
-  describe "won't be valid" do
-    it "with an duplicated email" do
-      user.save
-      user2 = FactoryBot.build :user
-      user2.wont_be :valid?
-      user2.errors.count.must_equal 1
-      user2.errors[:email].must_equal ["has already been taken"]
-    end
+  context "when email is not unique" do
+    let!(:other_user) { FactoryBot.create(:user, email: subject.email) }
 
-    it "without an email" do
-      user.email = nil
-      value(user).wont_be :valid?
-      user.errors[:email].first.must_equal "can't be blank"
+    it "is not valid" do
+      expect(subject.errors[:email]).to eq(["has already been taken"])
     end
+  end
 
-    it "with an falsy email" do
-      user.email = "thisis@falsemail"
-      value(user).wont_be :valid?
-      user.errors[:email].first.must_equal "is invalid"
+  context "without an email" do
+    it "is not valid" do
+      subject.email = nil
+      subject.save
+      expect(subject.errors[:email]).to include("can't be blank")
     end
+  end
 
-    it "with an email without a mx-record" do
-      user.email = "hi@thisdomainwillneverexistnorhaveamxrecord.com"
-      value(user).wont_be :valid?
-      user.errors[:email].first.must_equal "is invalid"
+  context "with an invalid email" do
+    it "is not valid" do
+      subject.email = "thisis@falsemail"
+      subject.save
+      expect(subject.errors[:email]).to include("is invalid")
     end
+  end
 
-    it "with an email that is on our blacklist" do
-      user.email = "test@trashmail.com"
-      value(user).wont_be :valid?
-      user.errors[:email].first.must_equal "is a blacklisted email provider"
+  context "with an email without a mx-record" do
+    it "is not valid" do
+      subject.email = "hi@thisdomainwillneverexistnorhaveamxrecord.com"
+      subject.save
+      expect(subject.errors[:email]).to include("is invalid")
+    end
+  end
+
+  context "with an email that is on our blacklist" do
+    it "is not valid" do
+      subject.email = "test@trashmail.com"
+      subject.save
+      expect(subject.errors[:email]).to include("is a blacklisted email provider")
     end
   end
 end
