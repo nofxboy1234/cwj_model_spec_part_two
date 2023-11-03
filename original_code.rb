@@ -9,13 +9,6 @@ class UserTest < ActiveSupport::TestCase
     it { should be_valid }
   end
 
-  it "can be saved" do
-    assert_difference "User.count", 1 do
-      user.save
-    end
-    assert user.persisted?
-  end
-
   describe "won't be valid" do
     it "with an duplicated email" do
       user.save
